@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+$primaryBackground: linear-gradient(
+  to top,
+  #001169,
+  #003088,
+  #004ea5,
+  #006dc1,
+  #008cdb
+);
+$primaryFontColor: white;
+$maxHeight: 100%;
+
+html {
+  background-image: $primaryBackground;
+  height: $maxHeight;
+}
