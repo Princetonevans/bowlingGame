@@ -24,6 +24,9 @@ export class GameComponent {
       } else if (this.isSpare(rollIndex)) {
         score += 10 + this.spareBonus(rollIndex);
         rollIndex += 2;
+      } else {
+        score += this.sumOfBallsInFrame(rollIndex);
+        rollIndex += 2;
       }
     }
 
@@ -44,5 +47,9 @@ export class GameComponent {
 
   private spareBonus(rollIndex: number): number {
     return this.rolls[rollIndex + 2];
+  }
+
+  private sumOfBallsInFrame(rollIndex: number): number {
+    return this.rolls[rollIndex] + this.rolls[rollIndex + 1];
   }
 }
