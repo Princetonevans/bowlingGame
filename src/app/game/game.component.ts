@@ -17,11 +17,14 @@ export class GameComponent {
   firstRollTotal: number = 0;
   secondRollTotal: number = 0;
   frameTotal: number[] = [];
-
+  showReset: boolean = false;
+  canBowl: boolean = false;
   roll(pins: number) {
     let frameTotal;
     this.turns++;
+    // pins = 10;
     this.pinsRemaining -= pins;
+
     this.rolls.push(pins);
 
     if (this.turns < 2) {
@@ -30,62 +33,84 @@ export class GameComponent {
       this.secondRollTotal = pins;
     }
 
-    if (this.frame >= 10 && this.pinsRemaining < 1) {
-      this.showTotal = true;
-      alert('Game over!!!');
-    }
-
     if (this.pinsRemaining < 1 && this.turns < 2) {
       // IF STRIKE
       this.frameTotal.push(this.firstRollTotal + this.secondRollTotal);
       frameTotal = this.frameTotal.reduce((prev, next) => prev + next, 0);
-      this.frames.push({
-        frame: this.frame,
-        mark: 'X',
-        firstRollTotal: this.firstRollTotal,
-        secondRollTotal: this.secondRollTotal,
-        total: frameTotal,
-        spare: false,
-        strike: true,
-      });
+      this.frame++;
+      if (this.frame < 11) {
+        this.frames.push({
+          frame: this.frame,
+          mark: 'X',
+          firstRollTotal: this.firstRollTotal,
+          secondRollTotal: this.secondRollTotal,
+          total: frameTotal,
+          spare: false,
+          strike: true,
+        });
+      }
       this.nextFrame();
     }
-    if (this.pinsRemaining < 1 && this.turns === 2) {
+    if (this.pinsRemaining < 1 && this.turns == 2) {
       // IF SPARE
       this.frameTotal.push(this.firstRollTotal + this.secondRollTotal);
       frameTotal = this.frameTotal.reduce((prev, next) => prev + next, 0);
-      this.frames.push({
-        frame: this.frame,
-        mark: '/',
-        firstRollTotal: this.firstRollTotal,
-        secondRollTotal: this.secondRollTotal,
-        total: frameTotal,
-        spare: true,
-        strike: false,
-      });
+      this.frame++;
+      if (this.frame < 11) {
+        this.frames.push({
+          frame: this.frame,
+          mark: '/',
+          firstRollTotal: this.firstRollTotal,
+          secondRollTotal: this.secondRollTotal,
+          total: frameTotal,
+          spare: true,
+          strike: false,
+        });
+      }
       this.nextFrame();
     } else if (this.turns === 2 && this.pinsRemaining > 0) {
       this.frameTotal.push(this.firstRollTotal + this.secondRollTotal);
       frameTotal = this.frameTotal.reduce((prev, next) => prev + next, 0);
-      this.frames.push({
-        frame: this.frame,
-        mark: '',
-        firstRollTotal: this.firstRollTotal,
-        secondRollTotal: this.secondRollTotal,
-        total: frameTotal,
-        spare: false,
-        strike: false,
-      });
-      this.nextFrame();
-    } else if (this.turns === 1 && this.pinsRemaining > 0) {
       this.frame++;
+      if (this.frame < 11) {
+        this.frames.push({
+          frame: this.frame,
+          mark: '',
+          firstRollTotal: this.firstRollTotal,
+          secondRollTotal: this.secondRollTotal,
+          total: frameTotal,
+          spare: false,
+          strike: false,
+        });
+      }
+      this.nextFrame();
     }
+
+    if (this.frame > 11) {
+      this.showTotal = true;
+      this.showReset = true;
+      this.canBowl = false;
+      alert('Game over!!!');
+    }
+  }
+
+  reset(): void {
+    this.frames = [];
+    this.rolls = [];
+    this.frame = 0;
+    this.turns = 0;
+    this.pinsRemaining = 10;
+    this.startGame = true;
+    this.showTotal = false;
+    this.showReset = false;
+    this.firstRollTotal = 0;
+    this.secondRollTotal = 0;
+    this.frameTotal = [];
   }
 
   nextFrame(): void {
     this.turns = 0;
     this.pinsRemaining = 10;
-    console.log('NEXT FRAME CALLED');
   }
 
   spin(): number {
@@ -94,7 +119,8 @@ export class GameComponent {
   }
 
   start(): void {
-    this.startGame != this.startGame;
+    this.startGame = false;
+    this.canBowl = true;
   }
   submit(value: string) {
     console.log(value);
