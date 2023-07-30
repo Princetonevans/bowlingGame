@@ -1,0 +1,71 @@
+$white: #ffffff;
+$primaryBlue: #2e69f1;
+.container {
+  display: flex;
+  align-items: center;
+  color: $white;
+  justify-content: center;
+  margin: auto;
+}
+.playerName {
+  background-color: $primaryBlue;
+  margin: 2px;
+  margin: auto;
+}
+
+.row {
+  display: flex;
+  padding: 10px 2px;
+}
+
+.score {
+  margin: 2px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  background-color: $primaryBlue;
+}
+
+.frame {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.frames {
+  display: flex;
+}
+
+.total {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  background-color: $primaryBlue;
+}
+
+button {
+  padding: 10px;
+}
+
+.bowl-button {
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.playerScore {
+  padding: 20px;
+  margin-top: 15px;
+}
+
+.form,
+.start-button {
+  display: flex;
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}

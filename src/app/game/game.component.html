@@ -1,1 +1,61 @@
-<p>game works!</p>
+<div class="container">
+  <div *ngIf="!startGame">
+    <p class="text-center">Name</p>
+    <div class="total">
+      <p>{{ playerName }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="frames">
+      <div class="frame" *ngFor="let frame of frames">
+        <p>{{ frame.frame }}</p>
+        <div class="score">
+          <div style="display: flex; justify-content: space-around">
+            <p>{{ frame.firstRollTotal }}</p>
+            <p *ngIf="!frame.strike && !frame.spare">
+              {{ frame.secondRollTotal }}
+            </p>
+            <p *ngIf="frame.strike || frame.spare">{{ frame.mark }}</p>
+          </div>
+          <p>{{ frame.total }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showTotal">
+    <p class="text-center">Total</p>
+    <div class="total">
+      <p>{{ getScore() }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="container bowl-button">
+  <div *ngIf="canBowl">
+    <button (click)="roll(spin())">Click to bowl</button>
+  </div>
+  <div *ngIf="showReset" (click)="reset()" class="start-button">
+    <button>Restart Game</button>
+  </div>
+</div>
+
+<div class="container form" *ngIf="startGame">
+  <form #playerForm="ngForm" (ngSubmit)="submit($event)">
+    <div class="form-group">
+      <label for="playerName">First Name</label><br />
+      <input
+        type="text"
+        class="form-control"
+        id="playerName"
+        required
+        [(ngModel)]="playerName"
+        name="playerName"
+        placeholder="First Name"
+      />
+    </div>
+    <pre></pre>
+    <div (click)="start()" class="start-button">
+      <button [disabled]="!playerForm.form.valid">Click to start game</button>
+    </div>
+  </form>
+</div>
