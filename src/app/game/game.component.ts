@@ -22,7 +22,7 @@ export class GameComponent {
   roll(pins: number) {
     let frameTotal;
     this.turns++;
-    // pins = 10;
+    pins = 5;
     this.pinsRemaining -= pins;
 
     this.rolls.push(pins);
@@ -37,7 +37,6 @@ export class GameComponent {
       // IF STRIKE
       this.frameTotal.push(this.firstRollTotal + this.secondRollTotal);
       frameTotal = this.frameTotal.reduce((prev, next) => prev + next, 0);
-      this.frame++;
       if (this.frame < 11) {
         this.frames.push({
           frame: this.frame,
@@ -55,7 +54,6 @@ export class GameComponent {
       // IF SPARE
       this.frameTotal.push(this.firstRollTotal + this.secondRollTotal);
       frameTotal = this.frameTotal.reduce((prev, next) => prev + next, 0);
-      this.frame++;
       if (this.frame < 11) {
         this.frames.push({
           frame: this.frame,
@@ -71,7 +69,6 @@ export class GameComponent {
     } else if (this.turns === 2 && this.pinsRemaining > 0) {
       this.frameTotal.push(this.firstRollTotal + this.secondRollTotal);
       frameTotal = this.frameTotal.reduce((prev, next) => prev + next, 0);
-      this.frame++;
       if (this.frame < 11) {
         this.frames.push({
           frame: this.frame,
@@ -111,6 +108,7 @@ export class GameComponent {
   nextFrame(): void {
     this.turns = 0;
     this.pinsRemaining = 10;
+    this.frame++;
   }
 
   spin(): number {
