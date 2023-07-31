@@ -12,10 +12,6 @@ describe('GameComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
-    expect(component).toBeTruthy();
-  });
-
   it('should have a defined rolls array', () => {
     expect(component.rolls).toBeDefined();
   });

@@ -22,7 +22,6 @@ export class GameComponent {
   roll(pins: number) {
     let frameTotal;
     this.turns++;
-    pins = 5;
     this.pinsRemaining -= pins;
 
     this.rolls.push(pins);
